@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jordi & Anais 💍</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(#f8f0f0, #fcefe8);
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      color: #5a3e36;
+    }
+    .header-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 60vh;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: auto;
+      margin-top: -40px;
+      position: relative;
+      z-index: 1;
+    }
+    button {
+      background: #d8a48f;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      margin: 0.5rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover { background: #c08d78; }
+    .section { display: none; margin-top: 1rem; animation: fadeIn 0.5s; }
+    form { margin-top: 1rem; text-align: left; }
+    label { display: block; margin-top: 0.5rem; }
+    input[type="number"], input[type="email"] { width: 100%; padding: 0.3rem; margin-top: 0.3rem; border: 1px solid #ccc; border-radius: 5px; }
+    a.map-link { display: inline-block; margin-top: 0.5rem; color: #d8a48f; text-decoration: none; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @media (max-width:600px){ .card{ padding:1rem; border-radius:12px; } }
+  </style>
+</head>
+<body>
+  <img src="foto.jpg" alt="Foto de los novios" class="header-img">
+
+  <div class="card">
+    <h1>Jordi & Anais 💍</h1>
+    <p>¡Estás invitado a compartir este día tan especial con nosotros!</p>
+
+    <button onclick="toggleSection('fecha')">📅 Fecha</button>
+    <button onclick="toggleSection('menu')">🍽 Menú</button>
+    <button onclick="toggleSection('direccion')">📍 Dirección</button>
+    <button onclick="toggleSection('confirmacion')">✅ Confirmar Asistencia</button>
+
+    <div id="fecha" class="section">
+      <h2>Fecha</h2>
+      <p>25 de Octubre de 2026</p>
+      <p>Ceremonia: 12:00 hrs</p>
+    </div>
+
+    <div id="menu" class="section">
+      <h2>Menú</h2>
+      <p>Entrante: Ensalada mediterránea</p>
+      <p>Plato principal: Salmón al horno o Lomo de res</p>
+      <p>Postre: Tarta de frutos rojos</p>
+    </div>
+
+    <div id="direccion" class="section">
+      <h2>Dirección</h2>
+      <p>Carrer del Mil·lenari de Catalunya, 29, 08530 La Garriga, Barcelona</p>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Carrer+del+Mil%C2%B7lenari+de+Catalunya+29+08530+La+Garriga+Barcelona" target="_blank" rel="noopener">Ver en Google Maps</a>
+    </div>
+
+    <div id="confirmacion" class="section">
+      <h2>Confirmar Asistencia</h2>
+      <form id="rsvpForm">
+        <label><input type="checkbox" name="asistencia"> Confirmo que asistiré</label>
+        <label>Número de adultos:<input type="number" name="adultos" min="0" value="0"></label>
+        <label>Número de niños:<input type="number" name="ninos" min="0" value="0"></label>
+        <label>Tu correo electrónico:<input type="email" name="email" placeholder="tu@email.com" required></label>
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <script>
+    function toggleSection(id) {
+      const section = document.getElementById(id);
+      const visible = section.style.display === 'block';
+      document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+      section.style.display = visible ? 'none' : 'block';
+    }
+
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      const asistencia = this.elements['asistencia'].checked ? 'Sí' : 'No';
+      const body = encodeURIComponent(`Confirmación de asistencia:\nAsistirá: ${asistencia}\nAdultos: ${data.adultos}\nNiños: ${data.ninos}\nCorreo: ${data.email}`);
+      window.location.href = `mailto:Jordianais25@gmail.com?subject=RSVP Boda&body=${body}`;
+    });
+  </script>
+</body>
+</html>

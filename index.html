@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jordi & Anais 💍</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fffaf5;
+    color: #333;
+    text-align: center;
+  }
+  header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  header h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3em;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  section {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+  }
+  form {
+    text-align: left;
+    margin-top: 20px;
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  input, select, button {
+    margin-top: 5px;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .person {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+  }
+  .person input {
+    flex: 2;
+  }
+  .person select {
+    flex: 1;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="foto.jpg" alt="Foto de los novios">
+  <h1>Jordi & Anais 💍</h1>
+</header>
+
+<section>
+  <h2>📅 Fecha</h2>
+  <p>25 de Octubre de 2026 - 12:00 hrs</p>
+
+  <h2>📍 Dirección</h2>
+  <p><a href="https://www.google.com/maps/search/?api=1&query=Carrer+del+Mil%C2%B7lenari+de+Catalunya+29+08530+La+Garriga+Barcelona" target="_blank">
+  Carrer del Mil·lenari de Catalunya, 29, 08530 La Garriga, Barcelona</a></p>
+
+  <h2>🍽 Menú</h2>
+  <p>Entrante: Ensalada mediterránea<br>
+     Principal: Salmón al horno o Lomo de res<br>
+     Postre: Tarta de frutos rojos</p>
+
+  <h2>✅ Confirmación de asistencia</h2>
+  <form id="rsvpForm" action="mailto:Jordianais25@gmail.com" method="post" enctype="text/plain">
+    <label for="adultos">Número de adultos:</label>
+    <input type="number" id="adultos" name="adultos" min="0" value="0">
+    <div id="adultosFields"></div>
+
+    <label for="ninos">Número de niños:</label>
+    <input type="number" id="ninos" name="ninos" min="0" value="0">
+    <div id="ninosFields"></div>
+
+    <button type="submit">Enviar confirmación</button>
+  </form>
+</section>
+
+<audio id="musica" loop muted>
+  <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Generar campos dinámicos para adultos
+document.getElementById('adultos').addEventListener('input', function() {
+  const container = document.getElementById('adultosFields');
+  container.innerHTML = '';
+  for (let i = 0; i < this.value; i++) {
+    const div = document.createElement('div');
+    div.className = 'person';
+    div.innerHTML = '<input type="text" name="adulto_'+(i+1)+'" placeholder="Nombre y Apellido">' +
+                    '<select name="menu_adulto_'+(i+1)+'">' +
+                    '<option value="">Menú</option>' +
+                    '<option value="Salmón">Salmón</option>' +
+                    '<option value="Res">Res</option>' +
+                    '<option value="Vegano">Vegano</option>' +
+                    '</select>';
+    container.appendChild(div);
+  }
+});
+
+// Generar campos dinámicos para niños
+document.getElementById('ninos').addEventListener('input', function() {
+  const container = document.getElementById('ninosFields');
+  container.innerHTML = '';
+  for (let i = 0; i < this.value; i++) {
+    const div = document.createElement('div');
+    div.className = 'person';
+    div.innerHTML = '<input type="text" name="nino_'+(i+1)+'" placeholder="Nombre y Apellido">' +
+                    '<select name="menu_nino_'+(i+1)+'">' +
+                    '<option value="">Menú</option>' +
+                    '<option value="Salmón">Salmón</option>' +
+                    '<option value="Res">Res</option>' +
+                    '<option value="Vegano">Vegano</option>' +
+                    '</select>';
+    container.appendChild(div);
+  }
+});
+
+// Música: empieza en 1 minuto y 3 segundos
+document.getElementById('musica').addEventListener('loadedmetadata', function() {
+  this.currentTime = 63;
+});
+
+// Activar música al hacer clic
+document.body.addEventListener('click', function() {
+  const musica = document.getElementById('musica');
+  musica.muted = false;
+  musica.play();
+}, { once: true });
+</script>
+
+</body>
+</html>
